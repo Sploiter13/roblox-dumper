@@ -1,0 +1,223 @@
+---
+title: Everything Dumped
+icon: Braces
+description: Complete overview of all classes and properties that get dumped
+---
+
+The Roblox Dumper scans memory and extracts offsets for various Roblox classes. Here's everything that gets dumped:
+
+## Core Classes
+
+### Instance
+
+The base class for all Roblox objects. See [Roblox Instance documentation](https://create.roblox.com/docs/reference/engine/classes/Instance).
+
+- Class name and descriptor
+- Parent and children offsets
+- Name property
+- Attributes
+
+### DataModel
+
+The root of the Roblox game hierarchy. See [Roblox DataModel documentation](https://create.roblox.com/docs/reference/engine/classes/DataModel).
+
+- Game ID, Place ID, Creator ID
+- Workspace reference
+- RunService, UserInputService, ClientReplicator
+
+### Workspace
+
+The main game world container. See [Roblox Workspace documentation](https://create.roblox.com/docs/reference/engine/classes/Workspace).
+
+- Camera reference
+- Gravity
+
+## Player Classes
+
+### Player
+
+Player-specific information. See [Roblox Player documentation](https://create.roblox.com/docs/reference/engine/classes/Player).
+
+- Display name
+- User ID
+- Model instance (character)
+- Team assignment
+
+### Players
+
+The Players service. See [Roblox Players documentation](https://create.roblox.com/docs/reference/engine/classes/Players).
+
+- LocalPlayer reference
+
+### Humanoid
+
+Character humanoid properties. See [Roblox Humanoid documentation](https://create.roblox.com/docs/reference/engine/classes/Humanoid).
+
+- Health and MaxHealth
+- WalkSpeed and JumpPower
+- HipHeight
+- HealthDisplayDistance and NameDisplayDistance
+- RigType
+- MaxSlopeAngle
+- IsWalking state
+- WalkToPoint
+
+## 3D Objects
+
+### BasePart
+
+Physical parts in the game. See [Roblox Part documentation](https://create.roblox.com/docs/reference/engine/classes/BasePart).
+
+- Position (Vector3)
+- Size (Vector3)
+- Rotation
+- Color3
+- Transparency
+- Shape
+- Material
+- Primitive flags (Anchored, CanCollide, CanTouch)
+- AssemblyLinearVelocity
+
+### Mesh
+
+Mesh objects. See [Roblox Mesh documentation](https://create.roblox.com/docs/reference/engine/classes/Mesh).
+
+- MeshId
+- TextureId
+
+### SpecialMesh
+
+Special mesh types. See [Roblox SpecialMesh documentation](https://create.roblox.com/docs/reference/engine/classes/SpecialMesh).
+
+- MeshId
+- Scale (Vector3)
+
+## Camera
+
+### Camera
+
+View and rendering information. See [Roblox Camera documentation](https://create.roblox.com/docs/reference/engine/classes/Camera).
+
+- Field of View (FOV)
+- Position (Vector3)
+- Rotation/CFrame (Vector3)
+
+## Visual Effects
+
+### Lighting
+
+Global lighting settings. See [Roblox Lighting documentation](https://create.roblox.com/docs/reference/engine/classes/Lighting).
+
+- Brightness
+- ClockTime
+- EnvironmentDiffuseScale
+- EnvironmentSpecularScale
+- Ambient (Color3)
+- OutdoorAmbient (Color3)
+- ColorShift_Top (Color3)
+- ColorShift_Bottom (Color3)
+- Sky reference
+- Atmosphere reference
+
+### Sky
+
+Sky rendering and properties. See [Roblox Sky documentation](https://create.roblox.com/docs/reference/engine/classes/Sky).
+
+- Skybox textures (Bk, Dn, Ft, Lf, Rt, Up)
+- MoonTextureId
+- SunTextureId
+- SunAngularSize
+- MoonAngularSize
+- StarCount
+- SkyboxOrientation
+
+### Atmosphere
+
+Atmospheric effects. See [Roblox Atmosphere documentation](https://create.roblox.com/docs/reference/engine/classes/Atmosphere).
+
+- Density
+- Offset
+- Glare
+- Haze
+- Color (Color3)
+- Decay (Color3)
+
+### BloomEffect
+
+Bloom post-processing effect. See [Roblox BloomEffect documentation](https://create.roblox.com/docs/reference/engine/classes/BloomEffect).
+
+- Intensity
+- Size
+- Threshold
+
+### SunRaysEffect
+
+Sun rays rendering effect. See [Roblox SunRaysEffect documentation](https://create.roblox.com/docs/reference/engine/classes/SunRaysEffect).
+
+- Intensity
+- Spread
+
+### ColorCorrectionEffect
+
+Color correction post-processing. See [Roblox ColorCorrectionEffect documentation](https://create.roblox.com/docs/reference/engine/classes/ColorCorrectionEffect).
+
+- Brightness
+- Contrast
+- Saturation
+- TintColor (Color3)
+
+### DepthOfFieldEffect
+
+Depth of field blur effect. See [Roblox DepthOfFieldEffect documentation](https://create.roblox.com/docs/reference/engine/classes/DepthOfFieldEffect).
+
+- FarIntensity (stored as Density)
+- FocusDistance
+- InFocusRadius
+- NearIntensity
+
+## Values
+
+### Value
+
+Generic value objects. See [Roblox ValueBase documentation](https://create.roblox.com/docs/reference/engine/classes/ValueBase).
+
+- Value property (for StringValue, NumberValue, etc.)
+
+## Visual Engine
+
+### VisualEngine
+
+Low-level rendering engine.
+
+- Pointer to VisualEngine
+- RenderView
+- ViewMatrix (4x4 matrix)
+- WindowDimensions (Vector2)
+
+### RenderView
+
+Rendering view information.
+
+- InvalidateLighting
+
+## Output
+
+All dumped offsets are saved to `offsets.hpp` in a structured format:
+
+```cpp
+namespace offsets {
+    namespace Instance {
+        uintptr_t ClassDescriptor = 0x...;
+        uintptr_t Parent = 0x...;
+        // ... more offsets
+    }
+    namespace Part {
+        uintptr_t Position = 0x...;
+        uintptr_t Size = 0x...;
+        // ... more offsets
+    }
+    // ... more classes
+}
+```
+
+All offsets are saved to `offsets.hpp` and can be used in your C++ projects to read memory from Roblox games.
