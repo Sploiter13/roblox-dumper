@@ -15,6 +15,7 @@
 #include "phases/sky.hpp"
 #include "phases/special_mesh.hpp"
 #include "phases/sun_rays_effect.hpp"
+#include "phases/team.hpp"
 #include "phases/ui_gradient.hpp"
 #include "phases/value.hpp"
 #include "phases/visual_engine.hpp"
@@ -31,6 +32,7 @@ namespace scanner {
         registry.register_phase("Instance", phases::instance);
         registry.register_phase("Workspace", phases::workspace);
         registry.register_phase("Player", phases::player);
+        registry.register_phase("Team", phases::team);
         registry.register_phase("Part", phases::part);
         registry.register_phase("Humanoid", phases::humanoid);
         registry.register_phase("Mesh", phases::mesh);
@@ -46,7 +48,7 @@ namespace scanner {
         registry.register_phase("MouseService", phases::mouse_service);
         registry.register_phase("UIGradient", phases::ui_gradient);
 
-        // this phase also gets view matrix for VisualEngine
+        // // this phase also gets view matrix for VisualEngine
         registry.register_phase("Camera", phases::camera);
 
         return registry.run_all(ctx);
