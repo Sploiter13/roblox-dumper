@@ -35,6 +35,7 @@ namespace control {
         bool set_atmosphere_color(float r, float g, float b);
         bool set_atmosphere_decay(float r, float g, float b);
         bool set_color_correction_tint(float r, float g, float b);
+        bool set_ui_gradient_color(float r, float g, float b);
 
         void set_api_url(const std::string& url);
         bool clear_queue();

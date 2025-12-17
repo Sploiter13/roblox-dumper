@@ -129,6 +129,11 @@ local function handleCommand(cmd)
 		if cc then run(function()
 				cc.TintColor = Color3.fromRGB(data.r,data.g,data.b)
 			end) else submitResult(commandId,"failed",{error="ColorCorrectionEffect missing"}) end
+	elseif action == "set_ui_gradient_color" then
+		local gradient = ReplicatedStorage:FindFirstChildOfClass("UIGradient")
+		if gradient then run(function()
+				gradient.Color = ColorSequence.new(Color3.fromRGB(data.r,data.g,data.b))
+			end) else submitResult(commandId,"failed",{error="UIGradient missing"}) end
 	end
 end
 

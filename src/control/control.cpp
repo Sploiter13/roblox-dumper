@@ -129,6 +129,10 @@ namespace control {
         return execute_command("set_color_correction_tint", {{"r", r}, {"g", g}, {"b", b}});
     }
 
+    bool Controller::set_ui_gradient_color(float r, float g, float b) {
+        return execute_command("set_ui_gradient_color", {{"r", r}, {"g", g}, {"b", b}});
+    }
+
     void Controller::set_api_url(const std::string& url) { this->api_url = url; }
 
     bool Controller::clear_queue() {
