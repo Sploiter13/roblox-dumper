@@ -151,6 +151,42 @@ local function handleCommand(cmd)
 		else
 			submitResult(commandId, "failed", {error = err})
 		end
+
+	elseif action == "set_tool_can_be_dropped" then
+		local tool = ReplicatedStorage:FindFirstChild("Tool1")
+		if tool then
+			run(function() tool.CanBeDropped = data.value end)
+		else
+			submitResult(commandId, "failed", {error = "Tool1 missing"})
+		end
+	elseif action == "set_tool_enabled" then
+		local tool = ReplicatedStorage:FindFirstChild("Tool1")
+		if tool then
+			run(function() tool.Enabled = data.value end)
+		else
+			submitResult(commandId, "failed", {error = "Tool1 missing"})
+		end
+	elseif action == "set_tool_manual_activation" then
+		local tool = ReplicatedStorage:FindFirstChild("Tool1")
+		if tool then
+			run(function() tool.ManualActivationOnly = data.value end)
+		else
+			submitResult(commandId, "failed", {error = "Tool1 missing"})
+		end
+	elseif action == "set_tool_requires_handle" then
+		local tool = ReplicatedStorage:FindFirstChild("Tool1")
+		if tool then
+			run(function() tool.RequiresHandle = data.value end)
+		else
+			submitResult(commandId, "failed", {error = "Tool1 missing"})
+		end
+	elseif action == "set_tool_grip_pos" then
+		local tool = ReplicatedStorage:FindFirstChild("Tool1")
+		if tool then
+			run(function() tool.GripPos = Vector3.new(data.x, data.y, data.z) end)
+		else
+			submitResult(commandId, "failed", {error = "Tool1 missing"})
+		end
 	end
 end
 

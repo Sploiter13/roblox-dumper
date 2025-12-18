@@ -5,6 +5,11 @@ struct RGB {
     float r;
     float g;
     float b;
+
+    bool operator==(const RGB& other) const {
+        return std::abs(r - other.r) < 0.01f && std::abs(g - other.g) < 0.01f &&
+               std::abs(b - other.b) < 0.01f;
+    }
 };
 
 struct Vector3 {
@@ -14,6 +19,8 @@ struct Vector3 {
         return std::abs(x - other.x) < epsilon && std::abs(y - other.y) < epsilon &&
                std::abs(z - other.z) < epsilon;
     }
+
+    bool operator==(const Vector3& other) const { return equals(other, 10.0f); }
 };
 
 struct Vector2 {

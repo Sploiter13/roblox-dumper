@@ -239,6 +239,7 @@ namespace scanner::phases {
             return false;
         }
         offset_registry.add("Part", "AssemblyLinearVelocity", *velocity_offset);
+        offset_registry.add("Part", "AssemblyAngularVelocity", *velocity_offset + 12);
 
         auto walkto_offset = memory->find_vector3_offset(
             {npc_humanoid.address}, {{-41.001f, 0.5f, -728.995f}}, 0x600, 5.0f);

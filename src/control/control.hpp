@@ -30,6 +30,11 @@ namespace control {
         bool set_team(const std::string& team);
         bool set_frame_position(float x_scale, int x_offset, float y_scale, int y_offset);
         bool set_frame_size(float x_scale, int x_offset, float y_scale, int y_offset);
+        bool set_tool_can_be_dropped(bool value);
+        bool set_tool_enabled(bool value);
+        bool set_tool_manual_activation(bool value);
+        bool set_tool_requires_handle(bool value);
+        bool set_tool_grip_pos(float x, float y, float z);
 
         void set_api_url(const std::string& url);
         bool clear_queue();

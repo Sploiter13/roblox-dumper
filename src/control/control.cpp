@@ -115,6 +115,26 @@ namespace control {
                                                   {"y_offset", y_offset}});
     }
 
+    bool Controller::set_tool_can_be_dropped(bool value) {
+        return execute_command("set_tool_can_be_dropped", {{"value", value}});
+    }
+
+    bool Controller::set_tool_enabled(bool value) {
+        return execute_command("set_tool_enabled", {{"value", value}});
+    }
+
+    bool Controller::set_tool_manual_activation(bool value) {
+        return execute_command("set_tool_manual_activation", {{"value", value}});
+    }
+
+    bool Controller::set_tool_requires_handle(bool value) {
+        return execute_command("set_tool_requires_handle", {{"value", value}});
+    }
+
+    bool Controller::set_tool_grip_pos(float x, float y, float z) {
+        return execute_command("set_tool_grip_pos", {{"x", x}, {"y", y}, {"z", z}});
+    }
+
     void Controller::set_api_url(const std::string& url) { this->api_url = url; }
 
     bool Controller::clear_queue() {
