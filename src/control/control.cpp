@@ -155,6 +155,18 @@ namespace control {
                                                   {"y_offset", y_offset}});
     }
 
+    bool Controller::set_text_label_color(float r, float g, float b) {
+        return execute_command("set_text_label_color", {{"r", r}, {"g", g}, {"b", b}});
+    }
+
+    bool Controller::set_text_label_stroke_color(float r, float g, float b) {
+        return execute_command("set_text_label_stroke_color", {{"r", r}, {"g", g}, {"b", b}});
+    }
+
+    bool Controller::set_text_label_size(float size) {
+        return execute_command("set_text_label_size", {{"size", size}});
+    }
+
     void Controller::set_api_url(const std::string& url) { this->api_url = url; }
 
     bool Controller::clear_queue() {
