@@ -1,9 +1,9 @@
 //================================================================
 // Dumped By Jonah's Roblox Dumper | Discord: jonahw
 // Github Link: https://github.com/nopjo/roblox-dumper
-// Dumped at: 2025-12-17 23:34:57
+// Dumped at: 2025-12-18 01:20:42
 // Roblox Version: version-eaebe135b3ec446b
-// Total offsets dumped: 122
+// Total offsets dumped: 130
 //================================================================
 
 #pragma once
@@ -199,6 +199,17 @@ namespace offsets {
         inline constexpr uintptr_t Rotation = 0x188;
         inline constexpr uintptr_t Size = 0x540;
         inline constexpr uintptr_t ZIndex = 0x5B0;
+    }
+
+    namespace TextLabel {
+        inline constexpr uintptr_t LineHeight = 0xB54;
+        inline constexpr uintptr_t MaxVisibleGraphemes = 0xF14;
+        inline constexpr uintptr_t TextBounds = 0xD18;
+        inline constexpr uintptr_t TextColor3 = 0xEF0;
+        inline constexpr uintptr_t TextSize = 0xD1C;
+        inline constexpr uintptr_t TextStrokeColor3 = 0xEFC;
+        inline constexpr uintptr_t TextStrokeTransparency = 0xF20;
+        inline constexpr uintptr_t TextTransparency = 0xF24;
     }
 
     namespace Camera {

@@ -76,8 +76,14 @@ class Memory {
 
     template <typename T>
     std::optional<size_t> find_value_offset(uintptr_t base_address, T expected_value,
-                                            size_t max_offset = 0x1000, size_t alignment = 0x8) {
-        for (size_t offset = 0; offset < max_offset; offset += alignment) {
+                                            size_t max_offset = 0x1000, size_t alignment = 0x8,
+                                            size_t start_offset = 0,
+                                            const std::vector<size_t>& exclude_offsets = {}) {
+        for (size_t offset = start_offset; offset < max_offset; offset += alignment) {
+            if (std::find(exclude_offsets.begin(), exclude_offsets.end(), offset) !=
+                exclude_offsets.end()) {
+                continue;
+            }
             T value = read<T>(base_address + offset);
             if (value == expected_value)
                 return offset;

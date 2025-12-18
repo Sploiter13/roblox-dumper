@@ -211,6 +211,42 @@ local function handleCommand(cmd)
 		else
 			submitResult(commandId, "failed", {error = err})
 		end
+	elseif action == "set_text_label_color" then
+		local frame, err = getScreenGuiFrame()
+		if frame then
+			local text_label = frame:FindFirstChild("TextLabel")
+			if text_label then
+				run(function() setColor3(text_label, "TextColor3", data) end)
+			else
+				submitResult(commandId, "failed", {error = "TextLabel missing"})
+			end
+		else
+			submitResult(commandId, "failed", {error = err})
+		end
+	elseif action == "set_text_label_stroke_color" then
+		local frame, err = getScreenGuiFrame()
+		if frame then
+			local text_label = frame:FindFirstChild("TextLabel")
+			if text_label then
+				run(function() setColor3(text_label, "TextStrokeColor3", data) end)
+			else
+				submitResult(commandId, "failed", {error = "TextLabel missing"})
+			end
+		else
+			submitResult(commandId, "failed", {error = err})
+		end
+	elseif action == "set_text_label_size" then
+		local frame, err = getScreenGuiFrame()
+		if frame then
+			local text_label = frame:FindFirstChild("TextLabel")
+			if text_label then
+				run(function() text_label.TextSize = data.size end)
+			else
+				submitResult(commandId, "failed", {error = "TextLabel missing"})
+			end
+		else
+			submitResult(commandId, "failed", {error = err})
+		end
 	end
 end
 

@@ -17,6 +17,7 @@
 #include "phases/special_mesh.hpp"
 #include "phases/sun_rays_effect.hpp"
 #include "phases/team.hpp"
+#include "phases/text_label.hpp"
 #include "phases/ui_gradient.hpp"
 #include "phases/value.hpp"
 #include "phases/visual_engine.hpp"
@@ -49,6 +50,7 @@ namespace scanner {
         registry.register_phase("MouseService", phases::mouse_service);
         registry.register_phase("UIGradient", phases::ui_gradient);
         registry.register_phase("GuiObject", phases::gui_object);
+        registry.register_phase("TextLabel", phases::text_label);
 
         // this phase also gets view matrix for VisualEngine
         registry.register_phase("Camera", phases::camera);

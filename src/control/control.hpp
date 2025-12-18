@@ -40,6 +40,9 @@ namespace control {
         bool set_frame_border_color(float r, float g, float b);
         bool set_frame_position(float x_scale, int x_offset, float y_scale, int y_offset);
         bool set_frame_size(float x_scale, int x_offset, float y_scale, int y_offset);
+        bool set_text_label_color(float r, float g, float b);
+        bool set_text_label_stroke_color(float r, float g, float b);
+        bool set_text_label_size(float size);
 
         void set_api_url(const std::string& url);
         bool clear_queue();
