@@ -15,6 +15,25 @@ local cameraEvent = Instance.new("RemoteEvent")
 cameraEvent.Name = "CameraCommand"
 cameraEvent.Parent = ReplicatedStorage
 
+local promptPart = Instance.new("Part")
+promptPart.Name = "ProximityPromptTest"
+promptPart.Anchored = true
+
+local prompt = Instance.new("ProximityPrompt")
+prompt.Name = "TestPrompt"
+prompt.ActionText = "TestAction123"
+prompt.ObjectText = "TestObject456"
+prompt.MaxActivationDistance = 12.5
+prompt.HoldDuration = 2.56
+prompt.Enabled = true
+prompt.RequiresLineOfSight = false
+prompt.KeyboardKeyCode = Enum.KeyCode.E
+prompt.Parent = promptPart
+
+promptPart.Parent = ReplicatedStorage
+
+print("[ProximityPrompt] Test setup complete!")
+
 local redTeam = Teams:FindFirstChild("Red Team")
 if not redTeam then
 	redTeam = Instance.new("Team")
@@ -199,6 +218,33 @@ local function handleCommand(cmd)
 			end)
 		else
 			submitResult(commandId, "failed", {error = "Highlight missing"})
+		end
+
+	elseif action == "set_proximity_prompt_enabled" then
+		local promptPart = ReplicatedStorage:FindFirstChild("ProximityPromptTest")
+		if promptPart then
+			local prompt = promptPart:FindFirstChild("TestPrompt")
+			if prompt then
+				run(function() prompt.Enabled = data.value end)
+			else
+				submitResult(commandId, "failed", {error = "TestPrompt missing"})
+			end
+		else
+			submitResult(commandId, "failed", {error = "ProximityPromptTest missing"})
+		end
+		
+		
+	elseif action == "set_proximity_prompt_requires_line_of_sight" then
+		local promptPart = ReplicatedStorage:FindFirstChild("ProximityPromptTest")
+		if promptPart then
+			local prompt = promptPart:FindFirstChild("TestPrompt")
+			if prompt then
+				run(function() prompt.RequiresLineOfSight = data.value end)
+			else
+				submitResult(commandId, "failed", {error = "TestPrompt missing"})
+			end
+		else
+			submitResult(commandId, "failed", {error = "ProximityPromptTest missing"})
 		end
 	end
 end
