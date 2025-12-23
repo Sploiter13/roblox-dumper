@@ -14,6 +14,8 @@
 #include "phases/mouse_service.hpp"
 #include "phases/part.hpp"
 #include "phases/player.hpp"
+#include "phases/proximity_prompt.hpp"
+#include "phases/script.hpp"
 #include "phases/sky.hpp"
 #include "phases/special_mesh.hpp"
 #include "phases/sun_rays_effect.hpp"
@@ -24,7 +26,6 @@
 #include "phases/value.hpp"
 #include "phases/visual_engine.hpp"
 #include "phases/workspace.hpp"
-#include "phases/proximity_prompt.hpp"
 
 namespace scanner {
 
@@ -57,6 +58,7 @@ namespace scanner {
         registry.register_phase("Tool", phases::tool);
         registry.register_phase("Highlight", phases::highlight);
         registry.register_phase("ProximityPrompt", phases::proximity_prompt);
+        registry.register_phase("Script", phases::script);
 
         // this phase also gets view matrix for VisualEngine
         registry.register_phase("Camera", phases::camera);

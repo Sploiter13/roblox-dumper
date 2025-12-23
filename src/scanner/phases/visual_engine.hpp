@@ -42,7 +42,6 @@ namespace scanner::phases {
             memory->find_value_offset<uint32_t>(render_view, 257, 0x1000, 0x2);
         if (!invalidate_lighting) {
             LOG_ERR("Failed to find InvalidateLighting offset");
-            return false;
         }
         offset_registry.add("RenderView", "InvalidateLighting", *invalidate_lighting);
 
@@ -51,8 +50,7 @@ namespace scanner::phases {
             auto dimensions_x_offset = memory->find_value_offset<float>(
                 ctx.visual_engine, static_cast<float>(window_width), 0x1000, 0x4);
             if (dimensions_x_offset) {
-                float y_value =
-                    memory->read<float>(ctx.visual_engine + *dimensions_x_offset + 0x4);
+                float y_value = memory->read<float>(ctx.visual_engine + *dimensions_x_offset + 0x4);
                 if (std::abs(y_value - static_cast<float>(window_height)) < 5.0f) {
                     offset_registry.add("VisualEngine", "WindowDimensions", *dimensions_x_offset);
                 } else {

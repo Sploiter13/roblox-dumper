@@ -50,6 +50,18 @@ class OffsetRegistry {
         LOG_SUCCESS("{}: 0x{:X}", offset_name, value);
     }
 
+    uintptr_t get(const std::string& namespace_name, const std::string& offset_name) const {
+        auto it = namespaces.find(namespace_name);
+        if (it == namespaces.end())
+            return 0;
+
+        auto off = it->second.find(offset_name);
+        if (off == it->second.end())
+            return 0;
+
+        return off->second;
+    }
+
     void set_roblox_version(const std::string& version) { roblox_version = version; }
 
     void write_to_file(const std::string& filename = "offsets.hpp") {
@@ -80,6 +92,7 @@ class OffsetRegistry {
         file << "//================================================================\n";
         file << "// Dumped By Jonah's Roblox Dumper | Discord: jonahw\n";
         file << "// Github Link: https://github.com/nopjo/roblox-dumper\n";
+        file << "// Contributors: @4hd8, @fulore \n";
         file << "// Dumped at: " << timestamp.str() << "\n";
         if (!roblox_version.empty()) {
             file << "// Roblox Version: " << roblox_version << "\n";
