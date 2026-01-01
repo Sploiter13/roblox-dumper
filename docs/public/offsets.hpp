@@ -2,8 +2,8 @@
 // Dumped By Jonah's Roblox Dumper | Discord: jonahw
 // Github Link: https://github.com/nopjo/roblox-dumper
 // Contributors: @4hd8, @fulore 
-// Dumped at: 2025-12-26 20:39:18
-// Roblox Version: version-5b077c09380f4fe6
+// Dumped at: 2026-01-01 18:02:36
+// Roblox Version: version-f8f53a67efca4c34
 // Total offsets dumped: 192
 //================================================================
 
