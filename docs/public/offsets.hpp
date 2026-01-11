@@ -2,9 +2,9 @@
 // Dumped By Jonah's Roblox Dumper | Discord: jonahw
 // Github Link: https://github.com/nopjo/roblox-dumper
 // Contributors: @4hd8, @fulore 
-// Dumped at: 2026-01-08 10:13:39
+// Dumped at: 2026-01-11 23:20:50
 // Roblox Version: version-89d89cb2d6b649be
-// Total offsets dumped: 192
+// Total offsets dumped: 208
 //================================================================
 
 #pragma once
@@ -217,6 +217,28 @@ namespace offsets {
         inline constexpr uintptr_t TextStrokeColor3 = 0xF04;
         inline constexpr uintptr_t TextStrokeTransparency = 0xF28;
         inline constexpr uintptr_t TextTransparency = 0xF2C;
+    }
+
+    namespace TextButton {
+        inline constexpr uintptr_t ContentText = 0xD68;
+        inline constexpr uintptr_t LineHeight = 0xDDC;
+        inline constexpr uintptr_t Text = 0x10C8;
+        inline constexpr uintptr_t TextBounds = 0xFA0;
+        inline constexpr uintptr_t TextColor3 = 0x1178;
+        inline constexpr uintptr_t TextSize = 0xFA4;
+        inline constexpr uintptr_t TextStrokeColor3 = 0x1184;
+        inline constexpr uintptr_t TextTransparency = 0x11AC;
+    }
+
+    namespace TextBox {
+        inline constexpr uintptr_t ContentText = 0xAE0;
+        inline constexpr uintptr_t LineHeight = 0xB54;
+        inline constexpr uintptr_t Text = 0xE40;
+        inline constexpr uintptr_t TextBounds = 0xD18;
+        inline constexpr uintptr_t TextColor3 = 0xF1C;
+        inline constexpr uintptr_t TextSize = 0xD1C;
+        inline constexpr uintptr_t TextStrokeColor3 = 0xF28;
+        inline constexpr uintptr_t TextTransparency = 0xF60;
     }
 
     namespace Tool {
