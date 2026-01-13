@@ -50,6 +50,8 @@ namespace scanner::phases {
         constexpr float CHAR1_WALK_SPEED = 298.0f;
         constexpr float CHAR1_JUMP_POWER = 91.0f;
         constexpr float CHAR1_MAX_SLOPE_ANGLE = 4.26f;
+        constexpr float CHAR1_JUMP_HEIGHT = 54.457f; 
+
         constexpr uint8_t CHAR1_RIG_TYPE = 1;
 
         constexpr float CHAR2_HEALTH_DISPLAY_DIST = 201.0f;
@@ -60,6 +62,7 @@ namespace scanner::phases {
         constexpr float CHAR2_WALK_SPEED = 28.0f;
         constexpr float CHAR2_JUMP_POWER = 56.0f;
         constexpr float CHAR2_MAX_SLOPE_ANGLE = 56.74f;
+        constexpr float CHAR2_JUMP_HEIGHT = 78.324f; 
 
         constexpr uint8_t CHAR2_RIG_TYPE = 0;
 
@@ -125,6 +128,16 @@ namespace scanner::phases {
             return false;
         }
         offset_registry.add("Humanoid", "JumpPower", *jump_power_offset);
+
+        auto jump_height_offset = memory->find_verified_offset_float(
+            {humanoid1.address, humanoid2.address}, {CHAR1_JUMP_HEIGHT, CHAR2_JUMP_HEIGHT},
+            SCAN_RANGE, ALIGNMENT);
+
+        if (!jump_height_offset) {
+            LOG_ERR("Failed to find JumpHeight offset");
+            return false;
+        }
+        offset_registry.add("Humanoid", "JumpHeight", *jump_height_offset);
 
         auto walkspeed_offset = memory->find_verified_offset_float(
             {humanoid1.address, humanoid2.address}, {CHAR1_WALK_SPEED, CHAR2_WALK_SPEED},
@@ -251,6 +264,214 @@ namespace scanner::phases {
         offset_registry.add("Humanoid", "WalkToPoint", *walkto_offset);
 
         controller.set_npc_move_to(false);
+
+        constexpr int PROP_SLEEP_MS = 150; 
+
+        LOG_INFO("Scanning for AutoRotate...");
+        controller.set_npc_auto_rotate(false);
+        std::this_thread::sleep_for(std::chrono::milliseconds(PROP_SLEEP_MS));
+
+        std::vector<uint8_t> auto_rotate_values = {0, 1, 0, 1};
+        auto auto_rotate_offsets = memory->find_offsets_with_snapshots<uint8_t>(
+            npc_humanoid.address, auto_rotate_values,
+            [&](size_t i) {
+                controller.set_npc_auto_rotate(auto_rotate_values[i] == 1);
+                std::this_thread::sleep_for(std::chrono::milliseconds(PROP_SLEEP_MS));
+            },
+            SCAN_RANGE, 0x1);
+
+        if (auto_rotate_offsets.empty()) {
+            LOG_ERR("Failed to find AutoRotate offset");
+            return false;
+        }
+        offset_registry.add("Humanoid", "AutoRotate", auto_rotate_offsets[0]);
+
+        LOG_INFO("Scanning for AutoJumpEnabled...");
+        controller.set_npc_auto_jump_enabled(true);
+        std::this_thread::sleep_for(std::chrono::milliseconds(PROP_SLEEP_MS));
+
+        std::vector<uint8_t> auto_jump_values = {1, 0, 1, 0};
+        auto auto_jump_offsets = memory->find_offsets_with_snapshots<uint8_t>(
+            npc_humanoid.address, auto_jump_values,
+            [&](size_t i) {
+                controller.set_npc_auto_jump_enabled(auto_jump_values[i] == 1);
+                std::this_thread::sleep_for(std::chrono::milliseconds(PROP_SLEEP_MS));
+            },
+            SCAN_RANGE, 0x1);
+
+        if (auto_jump_offsets.empty()) {
+            LOG_ERR("Failed to find AutoJumpEnabled offset");
+            return false;
+        }
+        offset_registry.add("Humanoid", "AutoJumpEnabled", auto_jump_offsets[0]);
+
+        LOG_INFO("Scanning for BreakJointsOnDeath...");
+        controller.set_npc_break_joints_on_death(true);
+        std::this_thread::sleep_for(std::chrono::milliseconds(PROP_SLEEP_MS));
+
+        std::vector<uint8_t> break_joints_values = {1, 0, 1, 0};
+        auto break_joints_offsets = memory->find_offsets_with_snapshots<uint8_t>(
+            npc_humanoid.address, break_joints_values,
+            [&](size_t i) {
+                controller.set_npc_break_joints_on_death(break_joints_values[i] == 1);
+                std::this_thread::sleep_for(std::chrono::milliseconds(PROP_SLEEP_MS));
+            },
+            SCAN_RANGE, 0x1);
+
+        if (break_joints_offsets.empty()) {
+            LOG_ERR("Failed to find BreakJointsOnDeath offset");
+            return false;
+        }
+        offset_registry.add("Humanoid", "BreakJointsOnDeath", break_joints_offsets[0]);
+
+        LOG_INFO("Scanning for RequiresNeck...");
+        controller.set_npc_requires_neck(true);
+        std::this_thread::sleep_for(std::chrono::milliseconds(PROP_SLEEP_MS));
+
+        std::vector<uint8_t> requires_neck_values = {1, 0, 1, 0};
+        auto requires_neck_offsets = memory->find_offsets_with_snapshots<uint8_t>(
+            npc_humanoid.address, requires_neck_values,
+            [&](size_t i) {
+                controller.set_npc_requires_neck(requires_neck_values[i] == 1);
+                std::this_thread::sleep_for(std::chrono::milliseconds(PROP_SLEEP_MS));
+            },
+            SCAN_RANGE, 0x1);
+
+        if (requires_neck_offsets.empty()) {
+            LOG_ERR("Failed to find RequiresNeck offset");
+            return false;
+        }
+        offset_registry.add("Humanoid", "RequiresNeck", requires_neck_offsets[0]);
+
+        LOG_INFO("Scanning for UseJumpPower...");
+        controller.set_npc_use_jump_power(true);
+        std::this_thread::sleep_for(std::chrono::milliseconds(PROP_SLEEP_MS));
+
+        std::vector<uint8_t> use_jump_power_values = {1, 0, 1, 0};
+        auto use_jump_power_offsets = memory->find_offsets_with_snapshots<uint8_t>(
+            npc_humanoid.address, use_jump_power_values,
+            [&](size_t i) {
+                controller.set_npc_use_jump_power(use_jump_power_values[i] == 1);
+                std::this_thread::sleep_for(std::chrono::milliseconds(PROP_SLEEP_MS));
+            },
+            SCAN_RANGE, 0x1);
+
+        if (use_jump_power_offsets.empty()) {
+            LOG_ERR("Failed to find UseJumpPower offset");
+            return false;
+        }
+        offset_registry.add("Humanoid", "UseJumpPower", use_jump_power_offsets[0]);
+
+        LOG_INFO("Scanning for Jump (continuous monitoring)...");
+
+        std::vector<uint8_t> baseline(SCAN_RANGE);
+        for (size_t i = 0; i < SCAN_RANGE; i++) {
+            baseline[i] = memory->read<uint8_t>(npc_humanoid.address + i);
+        }
+
+        std::vector<int> toggle_count(SCAN_RANGE, 0);
+        std::vector<uint8_t> last_value = baseline;
+
+        controller.send_command("set_npc_continuous_jump", {{"enabled", true}, {"duration", 4.0f}});
+
+        LOG_INFO("Monitoring memory for 4 seconds...");
+
+        auto start_time = std::chrono::steady_clock::now();
+        int sample_count = 0;
+
+        while (true) {
+            auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(
+                               std::chrono::steady_clock::now() - start_time)
+                               .count();
+            if (elapsed > 4000)
+                break;
+
+            for (size_t i = 0; i < SCAN_RANGE; i++) {
+                uint8_t current = memory->read<uint8_t>(npc_humanoid.address + i);
+
+                if ((last_value[i] == 0 && current == 1) || (last_value[i] == 1 && current == 0)) {
+                    toggle_count[i]++;
+                }
+
+                last_value[i] = current;
+            }
+
+            sample_count++;
+        }
+
+        LOG_INFO("Took {} samples", sample_count);
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
+        std::vector<std::pair<size_t, int>> candidates;
+        for (size_t i = 0; i < SCAN_RANGE; i++) {
+            uint8_t current = memory->read<uint8_t>(npc_humanoid.address + i);
+
+            if (toggle_count[i] >= 4 && baseline[i] == 0 && current == 0) {
+                candidates.push_back({i, toggle_count[i]});
+            }
+        }
+
+        std::sort(candidates.begin(), candidates.end(),
+                  [](const auto& a, const auto& b) { return a.second > b.second; });
+
+        LOG_INFO("Found {} candidates with 4+ toggles:", candidates.size());
+        for (size_t i = 0; i < std::min(candidates.size(), (size_t)10); i++) {
+            LOG_INFO("  0x{:X}: {} toggles", candidates[i].first, candidates[i].second);
+        }
+
+        if (candidates.empty()) {
+            LOG_ERR("Failed to find Jump offset - no candidates");
+            return false;
+        }
+
+        if (candidates.size() == 1 || candidates[0].second >= 8) {
+            offset_registry.add("Humanoid", "Jump", candidates[0].first);
+            LOG_INFO("Jump offset found: 0x{:X} ({} toggles)", candidates[0].first,
+                     candidates[0].second);
+        } else {
+            offset_registry.add("Humanoid", "Jump", candidates[0].first);
+            LOG_INFO("Jump offset found: 0x{:X} ({} toggles) - highest of {} candidates",
+                     candidates[0].first, candidates[0].second, candidates.size());
+        }
+
+        LOG_INFO("Scanning for MoveDirection...");
+        controller.set_npc_move_direction(0, 0, -1);
+        std::this_thread::sleep_for(std::chrono::milliseconds(300));
+
+        auto move_direction_offset = memory->find_vector3_offset(
+            {npc_humanoid.address}, {{0.0f, 0.0f, -1.0f}}, SCAN_RANGE, 0.3f);
+
+        if (!move_direction_offset) {
+            LOG_ERR("Failed to find MoveDirection offset");
+            return false;
+        }
+        offset_registry.add("Humanoid", "MoveDirection", *move_direction_offset);
+
+        controller.set_npc_move_direction(0, 0, 0);
+
+        LOG_INFO("Scanning for FloorMaterial...");
+        controller.move_npc_to_floor("PlasticFloor");
+        std::this_thread::sleep_for(std::chrono::milliseconds(500)); 
+
+        std::vector<uint32_t> floor_values = {256, 512, 256, 512};
+        auto floor_offsets = memory->find_offsets_with_snapshots<uint32_t>(
+            npc_humanoid.address, floor_values,
+            [&](size_t i) {
+                if (floor_values[i] == 256) {
+                    controller.move_npc_to_floor("PlasticFloor");
+                } else {
+                    controller.move_npc_to_floor("WoodFloor");
+                }
+                std::this_thread::sleep_for(std::chrono::milliseconds(500)); 
+            },
+            SCAN_RANGE, 0x4);
+
+        if (floor_offsets.empty()) {
+            LOG_ERR("Failed to find FloorMaterial offset");
+            return false;
+        }
+        offset_registry.add("Humanoid", "FloorMaterial", floor_offsets[0]);
 
         LOG_INFO("Humanoid offset scan complete!");
         return true;
